@@ -3,10 +3,10 @@ function make2DArray(cols, rows) {
     for (var i = 0; i < arr.length; i++) {
         arr[i] = new Array(rows)
     }
-    return array;
+    return arr;
 }
 
-function Cell(w, x, y) {
+function Cell(x, y, w) {
     this.bee = true;
     this.revealed = true;
     this.x = x;
@@ -15,27 +15,30 @@ function Cell(w, x, y) {
 }
 
 Cell.prototype.show = function() {
-
-    rect(this.x, this.y, this.w, this.h)
+    rect(this.x, this.y, this.w, this.w);
 };
 
 var grid, cols, rows;
 var w = 20;
-var width, height = 201;
 
-function gridSetUp() {
-    createCanvas(width, height);
+function setup() {
+    createCanvas(201, 201);
     cols = floor(width / w);
-    row = floor(height / w);
+    rows = floor(height / w);
     grid = new make2DArray(cols, rows);
     for (var i = 0; i < cols; i++) {
         for (var j = 0; j < rows; j++) {
-            grid[i][j].show(i * w, j * w, w);
+            grid[i][j] = new Cell(i * w, j * w, w);
         }
     }
 }
 
 function draw() {
+    fill(255);
     background(0);
-
+    for (var i = 0; i < cols; i++) {
+        for (var j = 0; j < rows; j++) {
+            grid[i][j].show();
+        }
+    }
 }
